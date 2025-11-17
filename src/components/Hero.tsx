@@ -61,7 +61,7 @@ export const Hero = () => {
         </div>
 
         <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent animate-gradient">
-          Naman Chawla
+          Naman Chaw
         </h1>
 
         <div className="text-2xl md:text-3xl text-gray-300 mb-8 h-12 font-mono">
