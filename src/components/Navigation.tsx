@@ -46,7 +46,7 @@ export const Navigation = () => {
           >
             <Rocket className="w-7 h-7 sm:w-8 sm:h-8 text-cyan-400 group-hover:text-cyan-300 transition-all group-hover:-translate-y-0.5" />
             <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-              Portfolio
+              Dev Hub
             </span>
           </div>
 

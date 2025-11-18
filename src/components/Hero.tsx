@@ -125,7 +125,7 @@ export const Hero = () => {
             href="#projects"
             className="inline-flex justify-center items-center px-6 py-3 sm:px-8 sm:py-4 border-2 border-cyan-500 rounded-lg font-semibold text-cyan-400 text-sm sm:text-base hover:bg-cyan-500/10 transition-all hover:shadow-lg hover:shadow-cyan-500/30 hover:scale-105"
           >
-            View Project
+            View Projects
           </a>
         </div>
 
