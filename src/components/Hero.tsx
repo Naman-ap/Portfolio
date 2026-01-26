@@ -1,8 +1,12 @@
 import { useEffect, useState } from 'react';
-import { ChevronDown, Github, Linkedin, Mail, Code2, Sparkles } from 'lucide-react';
+import { Mail, Code2, Trophy } from 'lucide-react';
 import { useParallax } from '../hooks/useParallax';
 
-export const Hero = () => {
+interface HeroProps {
+  onMVPClick?: () => void;
+}
+
+export const Hero = ({ onMVPClick }: HeroProps) => {
   const [text, setText] = useState('');
   const [showCursor, setShowCursor] = useState(true);
   const [isTypingComplete, setIsTypingComplete] = useState(false);
@@ -36,13 +40,6 @@ export const Hero = () => {
       return () => clearInterval(cursorInterval);
     }
   }, [isTypingComplete]);
-
-  const scrollToNext = () => {
-    const element = document.getElementById('experience');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   return (
     <section
@@ -113,7 +110,7 @@ export const Hero = () => {
         <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4 mb-10 sm:mb-12 px-2">
           <a
             href="#contact"
-            className="group relative inline-flex justify-center items-center px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg font-semibold text-white text-sm sm:text-base overflow-hidden transition-all hover:shadow-lg hover:shadow-cyan-500/50 hover:scale-105"
+            className="group relative inline-flex justify-center items-center px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl font-semibold text-white text-sm sm:text-base overflow-hidden transition-all hover:shadow-lg hover:shadow-cyan-500/50 hover:scale-105"
           >
             <span className="relative z-10 flex items-center gap-2">
               <Mail className="w-5 h-5" />
@@ -123,10 +120,32 @@ export const Hero = () => {
           </a>
           <a
             href="#projects"
-            className="inline-flex justify-center items-center px-6 py-3 sm:px-8 sm:py-4 border-2 border-cyan-500 rounded-lg font-semibold text-cyan-400 text-sm sm:text-base hover:bg-cyan-500/10 transition-all hover:shadow-lg hover:shadow-cyan-500/30 hover:scale-105"
+            className="inline-flex justify-center items-center px-6 py-3 sm:px-8 sm:py-4 border-2 border-cyan-500 rounded-xl font-semibold text-cyan-400 text-sm sm:text-base hover:bg-cyan-500/10 transition-all hover:shadow-lg hover:shadow-cyan-500/30 hover:scale-105"
           >
             View Projects
           </a>
+          {onMVPClick && (
+            <button
+              onClick={onMVPClick}
+              className="relative group inline-flex justify-center items-center px-6 py-3 sm:px-8 sm:py-4 overflow-hidden transition-all hover:scale-105 rounded-xl"
+            >
+              {/* Animated background glow */}
+              <div className="absolute inset-0 bg-gradient-to-r from-amber-400 via-orange-500 to-pink-500 rounded-xl blur-md opacity-50 group-hover:opacity-70 group-hover:blur-lg transition-all animate-pulse"></div>
+              
+              {/* Animated border */}
+              <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-amber-400 via-orange-500 to-pink-500 p-[2px] animate-border-flow">
+                <div className="w-full h-full bg-gray-900 rounded-xl"></div>
+              </div>
+              
+              {/* Button content */}
+              <span className="relative z-10 flex items-center gap-2 font-bold text-base sm:text-lg">
+                <Trophy className="w-5 h-5 sm:w-6 sm:h-6 text-amber-400 group-hover:text-amber-300 transition-colors" />
+                <span className="bg-gradient-to-r from-amber-300 via-orange-400 to-pink-400 bg-clip-text text-transparent drop-shadow-[0_0_8px_rgba(251,191,36,0.5)]">
+                  My MVP
+                </span>
+              </span>
+            </button>
+          )}
         </div>
 
         {/* <div className="flex justify-center gap-6">

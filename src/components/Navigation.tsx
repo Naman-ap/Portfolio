@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, Rocket } from 'lucide-react';
+import { Menu, X, Rocket, Trophy } from 'lucide-react';
 
-export const Navigation = () => {
+interface NavigationProps {
+  onMVPClick?: () => void;
+}
+
+export const Navigation = ({ onMVPClick }: NavigationProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -25,10 +29,20 @@ export const Navigation = () => {
     { name: 'Home', id: 'home' },
     { name: 'Experience', id: 'experience' },
     { name: 'Projects', id: 'projects' },
+    { name: 'My MVP', id: 'mvp', isSpecial: true },
     { name: 'Skills', id: 'skills' },
     { name: 'Blog', id: 'blog' },
     { name: 'Contact', id: 'contact' },
   ];
+
+  const handleNavClick = (link: typeof navLinks[0]) => {
+    if (link.isSpecial && onMVPClick) {
+      onMVPClick();
+      setIsOpen(false);
+    } else {
+      scrollToSection(link.id);
+    }
+  };
 
   return (
     <nav
@@ -52,14 +66,38 @@ export const Navigation = () => {
 
           <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
             {navLinks.map((link) => (
-              <button
-                key={link.id}
-                onClick={() => scrollToSection(link.id)}
-                className="text-sm lg:text-base text-gray-300 hover:text-cyan-400 transition-colors relative group px-1"
-              >
-                {link.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-400 transition-all group-hover:w-full"></span>
-              </button>
+              link.isSpecial ? (
+                <button
+                  key={link.id}
+                  onClick={() => handleNavClick(link)}
+                  className="relative group inline-flex items-center px-4 py-2 overflow-hidden transition-all hover:scale-105 rounded-xl"
+                >
+                  {/* Animated background glow */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-amber-400 via-orange-500 to-pink-500 rounded-xl blur-md opacity-40 group-hover:opacity-60 group-hover:blur-lg transition-all animate-pulse"></div>
+                  
+                  {/* Animated border */}
+                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-amber-400 via-orange-500 to-pink-500 p-[2px] animate-border-flow">
+                    <div className="w-full h-full bg-gray-900 rounded-xl"></div>
+                  </div>
+                  
+                  {/* Button content */}
+                  <span className="relative z-10 flex items-center gap-1.5 font-bold text-sm lg:text-base">
+                    <Trophy className="w-4 h-4 text-amber-400 group-hover:text-amber-300 transition-colors" />
+                    <span className="bg-gradient-to-r from-amber-300 via-orange-400 to-pink-400 bg-clip-text text-transparent drop-shadow-[0_0_8px_rgba(251,191,36,0.5)]">
+                      {link.name}
+                    </span>
+                  </span>
+                </button>
+              ) : (
+                <button
+                  key={link.id}
+                  onClick={() => handleNavClick(link)}
+                  className="text-sm lg:text-base text-gray-300 hover:text-cyan-400 transition-colors relative group px-1"
+                >
+                  {link.name}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-400 transition-all group-hover:w-full"></span>
+                </button>
+              )
             ))}
           </div>
 
@@ -76,13 +114,37 @@ export const Navigation = () => {
         <div className="md:hidden bg-gray-950/98 backdrop-blur-md border-t border-cyan-500/20">
           <div className="px-4 py-3 space-y-2 sm:space-y-3">
             {navLinks.map((link) => (
-              <button
-                key={link.id}
-                onClick={() => scrollToSection(link.id)}
-                className="block w-full text-left text-sm sm:text-base text-gray-300 hover:text-cyan-400 hover:bg-gray-800/60 transition-colors rounded-md px-2 py-2"
-              >
-                {link.name}
-              </button>
+              link.isSpecial ? (
+                <button
+                  key={link.id}
+                  onClick={() => handleNavClick(link)}
+                  className="relative group block w-full text-left px-4 py-3 rounded-xl overflow-hidden"
+                >
+                  {/* Animated background glow */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-amber-400 via-orange-500 to-pink-500 rounded-xl blur-sm opacity-50 group-hover:opacity-70 transition-all"></div>
+                  
+                  {/* Animated border */}
+                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-amber-400 via-orange-500 to-pink-500 p-[2px]">
+                    <div className="w-full h-full bg-gray-900 rounded-xl"></div>
+                  </div>
+                  
+                  {/* Button content */}
+                  <span className="relative z-10 flex items-center gap-2 font-bold text-sm sm:text-base">
+                    <Trophy className="w-4 h-4 text-amber-400" />
+                    <span className="bg-gradient-to-r from-amber-300 via-orange-400 to-pink-400 bg-clip-text text-transparent drop-shadow-[0_0_8px_rgba(251,191,36,0.5)]">
+                      {link.name}
+                    </span>
+                  </span>
+                </button>
+              ) : (
+                <button
+                  key={link.id}
+                  onClick={() => handleNavClick(link)}
+                  className="block w-full text-left text-sm sm:text-base text-gray-300 hover:text-cyan-400 hover:bg-gray-800/60 transition-colors rounded-md px-2 py-2"
+                >
+                  {link.name}
+                </button>
+              )
             ))}
           </div>
         </div>

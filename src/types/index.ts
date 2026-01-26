@@ -31,3 +31,23 @@ export interface ContactForm {
   email: string;
   message: string;
 }
+
+export interface MvpProject {
+  id: string;
+  title: string;
+  tagline: string;
+  description: string;
+  heroMedia: string; // Image or video URL
+  mediaType: 'image' | 'video';
+  techStack: string[];
+  metrics: {
+    label: string;
+    value: string;
+    icon?: string;
+  }[];
+  launchDate: string;
+  status: 'launched' | 'beta' | 'building';
+  demoUrl?: string;
+  githubUrl?: string;
+  features: string[];
+}
